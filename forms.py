@@ -4,6 +4,7 @@ from wtforms import validators
 
 
 class UsarForm(Form):
+    matricula=IntegerField('Matricula')
     nombre=StringField('Nombre')
     apaterno=StringField('Apaterno')
     amaterno=StringField('Amaterno')
