@@ -1,7 +1,18 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template,request, redirect, url_for
 import forms
+from flask_wtf.csrf import CSRFProtect
+from flask import flash
+from config import DevelopmentConfig
+
+
+from models import db, Alumnos
 
 app = Flask(__name__)
+app.config.from_object(DevelopmentConfig)
+db.init_app(app)
+csrf = CSRFProtect(app)
+
+
 
 @app.route("/")
 @app.route("/index")
@@ -30,4 +41,7 @@ def usuario():
 
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	csrf.init_app(app)
+	with app.app_context():
+		db.create_all()
+	app.run()
