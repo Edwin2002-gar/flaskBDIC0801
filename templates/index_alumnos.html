@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="py-8">
+    <div class="flex justify-between mb-4">
+        <h1 class="text-2xl font-bold">Lista de Alumnos</h1>
+        <a href="/alumnos/nuevo" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Nuevo Alumno</a>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Apaterno</th>
+                    <th class="px-4 py-2">Amaterno</th>
+                    <th class="px-4 py-2">Edad</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alumno in alumnos %}
+                <tr class="border-b">
+                    <td class="px-4 py-2">{{ alumno.id }}</td>
+                    <td class="px-4 py-2">{{ alumno.nombre }}</td>
+                    <td class="px-4 py-2">{{ alumno.apaterno }}</td>
+                    <td class="px-4 py-2">{{ alumno.amaterno }}</td>
+                    <td class="px-4 py-2">{{ alumno.edad }}</td>
+                    <td class="px-4 py-2">{{ alumno.email }}</td>
+                    <td class="px-4 py-2">
+                        <a href="/alumnos/editar/{{ alumno.id }}" class="bg-yellow-500 text-white px-2 py-1 rounded">Editar</a>
+                        <a href="/alumnos/eliminar/{{ alumno.id }}" class="bg-red-500 text-white px-2 py-1 rounded" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
