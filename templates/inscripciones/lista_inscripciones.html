@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-pen"></i> Gestión de Inscripciones</h2>
+    <a href="{{ url_for('nueva_inscripcion') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nueva Inscripción
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Curso</th>
+                <th>Maestro</th>
+                <th>Alumnos Inscritos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for curso in cursos %}
+            <tr>
+                <td>{{ curso.nombre_curso }}</td>
+                <td>{{ curso.maestro.nombre }} {{ curso.maestro.apaterno }}</td>
+                <td>{{ curso.inscripciones|length }} alumnos</td>
+                <td class="table-actions">
+                    <a href="{{ url_for('ver_alumnos_curso', curso_id=curso.id) }}" class="btn btn-sm btn-info">
+                        <i class="fas fa-eye"></i> Ver Alumnos
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

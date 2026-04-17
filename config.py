@@ -4,6 +4,8 @@ from sqlalchemy import create_engine
 class Config(object):
     SECRET_KEY = "claveSecreta"
     SESSION_COOKIE_SECURE = False
+    WTF_CSRF_ENABLED = True 
+    WTF_CSRF_TIME_LIMIT = None 
     
 class DevelopmentConfig(Config):
     DEBUG = True

@@ -3,7 +3,13 @@
 {% import "_macros.html" as macros %}
 
 <div class="max-w-md mx-auto bg-white p-8 rounded shadow mt-8">
-    <h1 class="text-2xl font-bold mb-6">{% if form.id.data %}Editar{% else %}Nuevo{% endif %} Alumno</h1>
+    <h1 class="text-2xl font-bold mb-6">
+        {% if alumno %}
+            Editar Alumno
+        {% else %}
+            Nuevo Alumno
+        {% endif %}
+    </h1>
     
     <form method="POST">
         {{ form.csrf_token }}
@@ -25,12 +31,16 @@
         </div>
         
         <div class="mb-4">
-            {{ macros.campoNuevo(form.correo, class="w-full p-2 border rounded") }}
+            {{ macros.campoNuevo(form.email, class="w-full p-2 border rounded") }}
         </div>
         
         <div class="flex justify-between">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Guardar</button>
-            <a href="/index" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancelar</a>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Guardar
+            </button>
+            <a href="{{ url_for('lista_alumnos') }}" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                Cancelar
+            </a>
         </div>
     </form>
 </div>

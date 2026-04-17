@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="py-8">
+    <div class="flex justify-between mb-4">
+        <h1 class="text-2xl font-bold">Lista de Cursos</h1>
+        <a href="{{ url_for('cursos.nuevo_curso') }}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 shadow">
+            <i class="fas fa-plus mr-2"></i>Nuevo Curso
+        </a>
+    </div>
+    
+    <div class="overflow-x-auto shadow rounded-lg">
+        <table class="min-w-full bg-white border">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="px-4 py-3 text-left">ID</th>
+                    <th class="px-4 py-3 text-left">Nombre del Curso</th>
+                    <th class="px-4 py-3 text-left">Maestro Asignado</th>
+                    <th class="px-4 py-3 text-left">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for curso in cursos %}
+                <tr class="border-b hover:bg-gray-50 transition-colors">
+                    <td class="px-4 py-3">{{ curso.id }}</td>
+                    <td class="px-4 py-3 font-semibold">{{ curso.nombre_curso }}</td>
+                    <td class="px-4 py-3">
+                        {% if curso.maestro %}
+                            {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+                        {% else %}
+                            <span class="text-gray-400 italic">Sin asignar</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-4 py-3 space-x-2">
+                        <a href="{{ url_for('cursos.editar_curso', id=curso.id) }}" class="bg-yellow-500 text-white px-3 py-1.5 rounded hover:bg-yellow-600 text-sm">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="{{ url_for('cursos.eliminar_curso', id=curso.id) }}" class="bg-red-500 text-white px-3 py-1.5 rounded hover:bg-red-600 text-sm" onclick="return confirm('¿Estás seguro de eliminar este curso?')">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="px-4 py-8 text-center text-gray-500">
+                        No hay cursos registrados todavía. ¡Agrega uno nuevo!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
